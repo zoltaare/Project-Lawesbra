@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Project Lawesbra</title>
+	<!-- css -->
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/libs/css/jquery.mobile.theme-1.4.5.min.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/styles.css">
+	<!-- js -->
+	<script src="<?php echo base_url(); ?>assets/libs/js/jquery.min.js"></script>
+	<script src="<?php echo base_url(); ?>assets/libs/js/jquery.mobile-1.4.5.js"></script>
+	<script src="<?php echo base_url(); ?>assets/js/scripts.js"></script>
+</head>
+<body>
+
+<div data-role="page">
+	<div data-role="header">
+		<center><h2>Lawesbra</h2></center>
+	</div>
+	<div data-role="content">
+
+		<label for="text-basic">Text input:</label>
+		<input type="text" name="text-basic" id="text-basic" value="">
+	
+	</div>
+</div>
+
+</body>
+</html>
+
+
+list per product
+
+<div class="list-group">
+
+    <div class="list-group-item">
+        <div class="row-action-primary">
+            <i class="mdi-file-folder"></i>
+            <div class="least-content prod_price">50.00</div>
+        </div>
+        <div class="row-content">
+            <!-- <div class="least-content prod_price">50.00</div> -->
+            <h4 class="list-group-item-heading">Product Name</h4>
+            <p class="list-group-item-text"><a href="javascript:void(0)" class="btn btn-success btn-raised">Add to Order</a></p>
+            <!-- <div class="least-content prod_price">50.00</div> -->
+        </div>
+    </div>
+     <div class="list-group-separator"></div> 
+    <div class="list-group-item">
+        <div class="row-action-primary">
+            <i class="mdi-file-folder"></i>
+            <div class="least-content prod_price">50.00</div>
+        </div>
+        <div class="row-content">
+            <!-- <div class="least-content prod_price">50.00</div> -->
+            <h4 class="list-group-item-heading">Product Name</h4>
+            <p class="list-group-item-text"><a href="javascript:void(0)" class="btn btn-success btn-raised">Add to Order</a></p>
+            <!-- <div class="least-content prod_price">50.00</div> -->
+        </div>
+    </div>
+    
+    <div class="list-group-separator"></div> 
+    <div class="list-group-item">
+        <div class="row-action-primary">
+            <i class="mdi-file-folder"></i>
+            <div class="least-content prod_price">50.00</div>
+        </div>
+        <div class="row-content">
+            <!-- <div class="least-content prod_price">50.00</div> -->
+            <h4 class="list-group-item-heading">Product Name</h4>
+            <p class="list-group-item-text"><a href="javascript:void(0)" class="btn btn-success btn-raised">Add to Order</a></p>
+            <!-- <div class="least-content prod_price">50.00</div> -->
+        </div>
+    </div>
+    
+    <div class="list-group-separator"></div> 
+    <div class="list-group-item">
+        <div class="row-action-primary">
+            <i class="mdi-file-folder"></i>
+            <div class="least-content prod_price">50.00</div>
+        </div>
+        <div class="row-content">
+            <!-- <div class="least-content prod_price">50.00</div> -->
+            <h4 class="list-group-item-heading">Product Name</h4>
+            <p class="list-group-item-text"><a href="javascript:void(0)" class="btn btn-success btn-raised">Add to Order</a></p>
+            <!-- <div class="least-content prod_price">50.00</div> -->
+        </div>
+    </div>
+    
+    <div class="list-group-separator"></div> 
+    <div class="list-group-item">
+        <div class="row-action-primary">
+            <i class="mdi-file-folder"></i>
+            <div class="least-content prod_price">50.00</div>
+        </div>
+        <div class="row-content">
+            <!-- <div class="least-content prod_price">50.00</div> -->
+            <h4 class="list-group-item-heading">Product Name</h4>
+            <p class="list-group-item-text"><a href="javascript:void(0)" class="btn btn-success btn-raised">Add to Order</a></p>
+            <!-- <div class="least-content prod_price">50.00</div> -->
+        </div>
+    </div>
+    
+    <!-- <div class="list-group-item">
+        <div class="row-action-primary">
+            <i class="mdi-file-folder"></i>
+        </div>
+        <div class="row-content">
+            <div class="least-content">8m</div>
+            <h4 class="list-group-item-heading">Tile with a label</h4>
+            <p class="list-group-item-text">Maecenas sed diam eget risus varius blandit.</p>
+        </div>
+    </div>
+    <div class="list-group-separator"></div> -->
+</div>
