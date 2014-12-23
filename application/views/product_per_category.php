@@ -4,9 +4,9 @@
 		<div class="list-group-item">
 			<div class="row-picture">
 				<?php 
-				echo "<img src='data:image/jpeg;base64,".base64_encode( $product['prod_img'] )."' class='circle'/>";
+				echo "<img src='data:image/jpeg;base64,".base64_encode( $product['prod_img'] )."' class='circle show_image'/>";
 				?>
-				<div class="least-content prod_price lead text-warning"><?php echo $product['price'].".00"; ?></div>
+				<div class="least-content prod_price lead label label-warning"> <?php echo "&#8369;".$product['price'].".00"; ?></div>
 			</div>
 			<div class="row-content">
 				<div class="least-content">

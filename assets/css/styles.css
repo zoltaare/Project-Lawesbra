@@ -1,3 +1,30 @@
+.ajax_loader img{
+	display: none;
+	/*position: absolute;*/
+	/*margin: 0px auto;*/
+	position: absolute;
+	background-color: gray;
+	top: 40%;
+	right: 40%;
+	z-index: 9999;
+	border-radius: 25px;
+}
+.remove_order{
+	background-color: #B2B2B2;
+	padding: 1px 7px 1px 7px;
+	border-radius: 38px;
+	color: white;
+}
+.success_add_alert{
+	display:none;
+	height: 35px;
+	border-radius: 100px;
+	position: fixed;
+	bottom: 0%;
+	padding: 7px 5px 7px 10px;
+	right: 5%;
+}
+
 .site_heading{
 	margin: 50px 50px;
 	text-align: center;
@@ -11,9 +38,10 @@
 	font-size: 18px;
 }
 .prod_price{
-	font-size: 15px;
-	margin-top: 10px;
+	font-size: 12px;
+	margin-top: 12px;
 	text-align: center;
+	border-radius: 20px;
 }
 
 .list-group .category_container{
@@ -55,4 +83,9 @@
 .numpad{
 	position: relative;
 	font-size: 50px;
+}
+
+.modal_show_image{
+	-webkit-border-radius: 15px 15px 15px 15px;	
+	border-radius: 15px 15px 15px 15px;
 }

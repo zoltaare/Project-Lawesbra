@@ -21,8 +21,8 @@
 	<!-- <h1> <?php echo $cust_id; ?> </h1> -->
 	
 	<div class="container"> <!-- main container -->
-
-		<div class="navbar navbar-default row">
+		<!-- <div class="row"> -->
+		<div class="navbar navbar-default navbar-fixed-top">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 					<span class="icon-bar"></span>
@@ -36,7 +36,7 @@
 
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<ul class="nav navbar-nav">
-					<li class="nav_link active link_orders"><a href="#">Orders <span class="badge orders_count"></span></a></li>
+					<li class="nav_link active link_orders"><a href="#">Orders <span class="badge orders_count">0</span></a></li>
 					<li class="nav_link link_categories"><a href="#">Categories</a></li>
 				</ul>
 				<form class="navbar-form navbar-left">
@@ -47,13 +47,11 @@
 					<li class="link_logout"><a href="<?php echo base_url(); ?>">Logout</a></li>
 				</ul>
 			</div>
-		</div>
-
-
+		</div><br/><br/><br/>
+		<!-- </div> -->
 		<!-- categories page-->
 		<div class="container categories">
 			<div class="row">
-				<h3><center>CATEGORIES</center></h3>
 				<div class="list-group">
 
 					<?php foreach ($categories as $category) { ?>
@@ -84,76 +82,63 @@
 
 		<!-- orders -->
 		<div class="container orders">
-			<div class="row">
-				<div class="list-group">
-				    <div class="list-group-item" style="background-color: gray;">
-				        <div class="row-action-primary">
-				            <a href="javascript:void(0)" class="btn btn-danger btn-fab btn-raised mdi-action-grade"></a>
-				        </div>
-				        <div class="row-content">
-				            <div class="least-content">15m</div>
-				            <h4 class="list-group-item-heading">Tile with a label</h4>
-				            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-				        </div>
-				    </div>
-				    <div class="list-group-separator"></div>
-				    <div class="list-group-item">
-				        <div class="row-action-primary">
-				            <a href="javascript:void(0)" class="btn btn-danger btn-fab btn-raised mdi-action-grade"></a>
-				        </div>
-				        <div class="row-content">
-				            <div class="least-content">15m</div>
-				            <h4 class="list-group-item-heading">Tile with a label</h4>
-				            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-				        </div>
-				    </div>
-				    <div class="list-group-separator"></div>
-				    <div class="list-group-item">
-				        <div class="row-action-primary">
-				            <a href="javascript:void(0)" class="btn btn-danger btn-fab btn-raised mdi-action-grade"></a>
-				        </div>
-				        <div class="row-content">
-				            <div class="least-content">15m</div>
-				            <h4 class="list-group-item-heading">Tile with a label</h4>
-				            <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus.</p>
-				        </div>
-				    </div>
-				    <div class="list-group-separator"></div>
-				</div>
+			<div class="row order_list"><br/>
+				
 			</div>
 		</div>
 
 	</div> <!-- @end main container -->
 
 
-<!-- modals -->
-		<div class="modal test_modal">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title">Please Input Quantity <span class="hidden selected_item"></span></h4>
-					</div>
-					<div class="modal-body">
+	<!-- modals -->
+	<!-- ajax loader -->
+	<div class="ajax_loader">
+		<img src="<?php echo base_url(); ?>assets/img/ajax-loader.gif">
+	</div>
+	<!-- modal quantity -->
+	<div class="modal test_modal">
+		<div class="modal-dialog" style="margin-top: 80px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title"><center>Please Input Quantity</center><span class="hidden selected_item"></span></h4>
+				</div>
+				<div class="modal-body">
 
-						<div class="numpad"><center>
-							<a href="javascript:void(0)" class="btn btn-warning btn-fab btn-raised num">1</a>
-							<a href="javascript:void(0)" class="btn btn-warning btn-fab btn-raised num">2</a>
-							<a href="javascript:void(0)" class="btn btn-warning btn-fab btn-raised num">3</a>
-							<a href="javascript:void(0)" class="btn btn-warning btn-fab btn-raised num">4</a>
-							<a href="javascript:void(0)" class="btn btn-warning btn-fab btn-raised num">5</a>
-							<a href="javascript:void(0)" class="btn btn-warning btn-fab btn-raised num">6</a>
-							<a href="javascript:void(0)" class="btn btn-warning btn-fab btn-raised num">7</a>
-							<a href="javascript:void(0)" class="btn btn-warning btn-fab btn-raised num">8</a>
-							<a href="javascript:void(0)" class="btn btn-warning btn-fab btn-raised num">9</a>
-						</center></div>
+					<div class="numpad"><center>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">1</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">2</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">3</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">4</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">5</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">6</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">7</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">8</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">9</a>
+					</center></div>
 
-					</div>
-					<div class="modal-footer">
+				</div>
+				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+
+	<!-- product image modal -->
+	<div class="modal modal_show_image">
+		<div class="modal-dialog" style="margin-top: 100px;" data-dismiss="modal">
+			<div class="modal-content" style="border-radius: 10px;">
+				<div class="modal-body" style="padding: 10px;">
+					<img class="put_image" src="" height="100%" width="100%">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- success add order alert -->
+	<div class="alert alert-dismissable alert-success success_add_alert">
+	    <p>Order successfully added.</p>
+	</div>
 
 </body>
 </html>

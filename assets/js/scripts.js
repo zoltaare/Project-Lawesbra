@@ -98,7 +98,13 @@ $(function(){
 		})
 		$('.page_header_title').text($(this).find('h4').text());
 		$('.categories').slideUp('slow'); //hide categories page
-		$('.category').slideDown('slow'); //show products
+		$('.category').slideDown('slow'); //show products 
+	});
+
+	//view product image
+	$('body').on("click", ".show_image", function(evt){
+		$('.put_image').attr('src' , $(this).attr('src') );
+		$('.modal_show_image').modal('show');
 	});
 
 	//add to order
@@ -108,4 +114,19 @@ $(function(){
 		console.log('modal should appear');
 	});
 
-}); //@end main
+	//success add alert
+	$('.num').click(function(){
+		console.log('alert should appear');
+		$(".success_add_alert").fadeIn(500).delay(1500).fadeOut(400);
+		$('.test_modal').modal('hide');
+		var count = parseInt($('.orders_count').html()) + parseInt($(this).html());
+		$('.orders_count').html(count);
+	});
+
+
+}) //@end main
+.ajaxStart(function() {
+	$('.ajax_loader img').show();
+}).ajaxStop(function() {
+	$('.ajax_loader img').hide();
+});

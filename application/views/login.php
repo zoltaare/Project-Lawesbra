@@ -23,7 +23,7 @@
 		<div class="container">
 			<form class="form-horizontal form_login" action="<?php echo base_url(); ?>main/login" >
 				<fieldset>
-					<legend>Please Login</legend>
+					<legend><center>Please Login</center></legend>
 					<!-- error -->
 					<div class="alert alert-danger hidden errormsg_login">
 					    <!-- <button type="button" class="close" data-dismiss="alert">×</button> -->
@@ -31,23 +31,23 @@
 					</div>
 					<!-- username -->
 					<div class="form-group">
-						<label for="username" class="col-lg-2 control-label">Username</label>
+						<!-- <label for="username" class="col-lg-2 control-label">Username</label> -->
 						<div class="col-lg-10">
-							<input type="text" class="form-control" name='username' id="login_username" required autofocus>
+							<input type="text" class="form-control" name='username' id="login_username" required autofocus placeholder="Username">
 						</div>
 					</div>
 					<!-- pass -->
 					<div class="form-group">
-						<label for="password" class="col-lg-2 control-label">Password</label>
+						<!-- <label for="password" class="col-lg-2 control-label">Password</label> -->
 						<div class="col-lg-10">
-							<input type="password" class="form-control" name='password' id="login_password" required>
+							<input type="password" class="form-control" name='password' id="login_password" required placeholder="Password">
 						</div>
 					</div>
 					<!-- submit -->
 					<div class="form-group">
-						<div class="col-lg-10 col-lg-offset-2">
+						<div class="col-lg-10 col-lg-offset-2"><center>
 							<button type="submit" class="btn btn-primary submit_login">Submit</button>
-						</div>
+						</center></div>
 					</div>
 				</fieldset>
 			</form>
