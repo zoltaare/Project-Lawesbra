@@ -19,6 +19,6 @@
 					</p>
 				</div>
 			</div>
-			<?php } ?>
-			<div class="list-group-separator"></div>
+			<?php } ?><!-- 
+			<div class="list-group-separator"></div> -->
 		</div>

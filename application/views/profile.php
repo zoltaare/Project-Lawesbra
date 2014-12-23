@@ -87,8 +87,11 @@
 			</div>
 			<footer class="footer">
 		      <!-- <div class="container"> --><center>
-		        <a href="javascript:void(0)" class="btn btn-success btn-raised">Queue</a>
-		        <a href="javascript:void(0)" class="btn btn-warning btn-raised">Table#</a>
+		      	<div class="well well-sm" style="padding: 1px; margin-bottom: 0px;">
+					<h5>Total Payable : <span class="text-success" style="font-size: 20px;">&#8369;<span id="total_payable"></span>.00</span></h5>
+				</div>
+		        <a href="javascript:void(0)" class="btn btn-success btn-raised queue_order">Queue</a>
+		        <a href="javascript:void(0)" class="btn btn-warning btn-raised table_num">Table#</a>
 		      <!-- </div> --></center>
 		    </footer>
 		</div>
@@ -137,6 +140,40 @@
 				<div class="modal-body" style="padding: 10px;">
 					<img class="put_image" src="" height="100%" width="100%">
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- modal table num -->
+	<div class="modal modal_table_num">
+		<div class="modal-dialog" style="margin-top: 20px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <h4 class="modal-title"><center>Please Input Your Table Number</center><span class="hidden selected_item"></span></h4> -->
+				</div>
+				<div class="modal-body"><center>
+					<div class="table_input_box">
+					
+					</div></center>
+					<div class="table_numpad"><center>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised select_table">1</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised select_table">2</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised select_table">3</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised select_table">4</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised select_table">5</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised select_table">6</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised select_table">7</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised select_table">8</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised select_table">9</a>
+						<a href="javascript:void(0)" class="btn btn-success btn-fab btn-raised select_table">OK</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised select_table">0</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised select_table">C</a>
+					</center></div>
+
+				</div>
+				<div class="modal-footer"><center>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+				</center></div>
 			</div>
 		</div>
 	</div>

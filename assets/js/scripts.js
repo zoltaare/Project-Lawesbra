@@ -1,5 +1,13 @@
 $(function(){
 
+	function update_tp () {
+		var tp = 0;
+		$('.order_subtotal').each(function(){
+			tp += parseInt($(this).html());
+		});
+		$('#total_payable').html(tp);
+	}
+
 	//LOGIN SUBMIT
 	$('.submit_login').click(function(event){
 		event.preventDefault();	
@@ -125,8 +133,8 @@ $(function(){
 			},
 			type : 'post',
 			success: function(data){
-				$('.order_list').append(data);
-				
+				$('.order_list').append(data).delay(1000);
+				update_tp();
 			}, error : function(err){
 				console.log(err.responseText);
 			}
@@ -134,10 +142,34 @@ $(function(){
 
 		$(".success_add_alert").fadeIn(500).delay(1500).fadeOut(400);
 		$('.test_modal').modal('hide');
+		// update pill
 		var count = parseInt($('.orders_count').html()) + parseInt($(this).html());
 		$('.orders_count').html(count);
+		//update total payable
+		
 	});
 
+	//set table number
+	$('a.table_num').click(function(){
+		// console.log('table number set.');
+		$('.modal_table_num').modal('show');
+	});
+	//press a num
+	$('.select_table').click(function(){
+		if($(this).html() == "OK"){
+			$('.table_num').html("tbl #" +$('.table_input_box').html());
+			$('.modal_table_num').modal('hide');
+		}else if($(this).html() == "C"){
+			var tnum = $('.table_input_box').html();
+			$('.table_input_box').html(tnum.slice(0, -1));
+		}
+		else
+			$('.table_input_box').append($(this).html());
+	});
+	//queue order 
+	$('a.queue_order').click(function(){
+		console.log('queue order');
+	});
 
 }) //@end main
 .ajaxStart(function() {
