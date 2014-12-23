@@ -27,5 +27,12 @@ class Model_main extends CI_Controller {
 		return $q->result_array();
 	}
 
+	// get single product
+	public function get_product($p_id='')
+	{
+		// $this->db->select('prod_name, size_name, price, price_id');
+		$q = $this->db->get_where('view_product_prices', array('price_id' => $p_id));
+		return $q->result_array();
+	}
 
 } //@end main

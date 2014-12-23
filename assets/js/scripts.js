@@ -111,12 +111,27 @@ $(function(){
 	$('body').on("click", ".add_to_order", function(evt){
 		$('.selected_item').text(this.id);
 		$('.test_modal').modal('show');
-		console.log('modal should appear');
+		// console.log('modal should appear');
+		$('.num').attr('data-price-id', this.id);
 	});
 
-	//success add alert
-	$('.num').click(function(){
-		console.log('alert should appear');
+	//add order
+	$('.num').click(function(){	
+		$.ajax({
+			url : $(this).attr('data-url'),
+			data : { 
+				'price_id' : $(this).attr('data-price-id'),
+				'qty' : parseInt($(this).html())
+			},
+			type : 'post',
+			success: function(data){
+				$('.order_list').append(data);
+				
+			}, error : function(err){
+				console.log(err.responseText);
+			}
+		});
+
 		$(".success_add_alert").fadeIn(500).delay(1500).fadeOut(400);
 		$('.test_modal').modal('hide');
 		var count = parseInt($('.orders_count').html()) + parseInt($(this).html());

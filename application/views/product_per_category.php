@@ -19,7 +19,6 @@
 				?>
 				</div>
 				<h4 class="list-group-item-heading prod_name"><?php echo $product['prod_name']; ?></h4>
-				<!-- <p class="list-group-item-text">Donec id elit non mi porta gravida at eget metus</p> -->
 				<a href="javascript:void(0)" class="btn btn-primary btn-raised add_to_order" id="<?php echo $product['price_id']; ?>">Add to Order</a>
 			</div>
 		</div>

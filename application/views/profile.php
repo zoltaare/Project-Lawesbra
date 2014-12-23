@@ -85,6 +85,12 @@
 			<div class="row order_list"><br/>
 				
 			</div>
+			<footer class="footer">
+		      <!-- <div class="container"> --><center>
+		        <a href="javascript:void(0)" class="btn btn-success btn-raised">Queue</a>
+		        <a href="javascript:void(0)" class="btn btn-warning btn-raised">Table#</a>
+		      <!-- </div> --></center>
+		    </footer>
 		</div>
 
 	</div> <!-- @end main container -->
@@ -105,15 +111,15 @@
 				<div class="modal-body">
 
 					<div class="numpad"><center>
-						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">1</a>
-						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">2</a>
-						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">3</a>
-						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">4</a>
-						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">5</a>
-						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">6</a>
-						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">7</a>
-						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">8</a>
-						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num">9</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num" data-price-id="" data-url="<?php echo base_url(); ?>main/add_to_order">1</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num" data-price-id="" data-url="<?php echo base_url(); ?>main/add_to_order">2</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num" data-price-id="" data-url="<?php echo base_url(); ?>main/add_to_order">3</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num" data-price-id="" data-url="<?php echo base_url(); ?>main/add_to_order">4</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num" data-price-id="" data-url="<?php echo base_url(); ?>main/add_to_order">5</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num" data-price-id="" data-url="<?php echo base_url(); ?>main/add_to_order">6</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num" data-price-id="" data-url="<?php echo base_url(); ?>main/add_to_order">7</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num" data-price-id="" data-url="<?php echo base_url(); ?>main/add_to_order">8</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised num" data-price-id="" data-url="<?php echo base_url(); ?>main/add_to_order">9</a>
 					</center></div>
 
 				</div>

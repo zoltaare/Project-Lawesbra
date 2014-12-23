@@ -39,6 +39,13 @@ class Main extends CI_Controller {
 		echo $html;
 	}
 
+	public function add_to_order()
+	{
+		$data['product'] = $this->model_main->get_product($this->input->post('price_id'));
+		$data['qty'] = $this->input->post('qty');
+		$html = $this->load->view('per_order_template', $data);
+		echo $html;
+	}
 
 
 } //@end main
