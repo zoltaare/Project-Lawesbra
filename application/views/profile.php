@@ -20,7 +20,7 @@
 
 	<!-- <h1> <?php echo $cust_id; ?> </h1> -->
 	
-	<div class="container"> <!-- main container -->
+	<div class="container main_content" id="<?php echo $cust_id; ?>"> <!-- main container -->
 		<!-- <div class="row"> -->
 		<div class="navbar navbar-default navbar-fixed-top">
 			<div class="navbar-header">
@@ -90,8 +90,9 @@
 		      	<div class="well well-sm" style="padding: 1px; margin-bottom: 0px;">
 					<h5>Total Payable : <span class="text-success" style="font-size: 20px;">&#8369;<span id="total_payable"></span>.00</span></h5>
 				</div>
-		        <a href="javascript:void(0)" class="btn btn-success btn-raised queue_order">Queue</a>
-		        <a href="javascript:void(0)" class="btn btn-warning btn-raised table_num">Table#</a>
+		        <a href="javascript:void(0)" class="btn btn-success btn-raised queue_order" data-url="<?php echo base_url(); ?>main/">Queue</a>
+		        <a href="javascript:void(0)" class="btn btn-warning btn-raised table_num">Tbl # <span class='the_tnum'></span></a>
+		        <a href="javascript:void(0)" class="btn btn-primary btn-raised cash">Cash (Optional) &#8369;<span class='the_cash'></span>.00</a>
 		      <!-- </div> --></center>
 		    </footer>
 		</div>
@@ -178,9 +179,43 @@
 		</div>
 	</div>
 
+	<!-- modal cash -->
+	<div class="modal modal_cash">
+		<div class="modal-dialog" style="margin-top: 20px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<!-- <h4 class="modal-title"><center>Please Input Your Table Number</center><span class="hidden selected_item"></span></h4> -->
+				</div>
+				<div class="modal-body"><center>
+					<div class="cash_input_box">
+					
+					</div></center>
+					<div class="cashpad"><center>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised input_cash">1</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised input_cash">2</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised input_cash">3</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised input_cash">4</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised input_cash">5</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised input_cash">6</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised input_cash">7</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised input_cash">8</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised input_cash">9</a>
+						<a href="javascript:void(0)" class="btn btn-success btn-fab btn-raised input_cash">OK</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised input_cash">0</a>
+						<a href="javascript:void(0)" class="btn btn-primary btn-fab btn-raised input_cash">C</a>
+					</center></div>
+
+				</div>
+				<div class="modal-footer"><center>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+				</center></div>
+			</div>
+		</div>
+	</div>
+
 	<!-- success add order alert -->
 	<div class="alert alert-dismissable alert-success success_add_alert">
-	    <p>Order successfully added.</p>
+	    
 	</div>
 
 </body>

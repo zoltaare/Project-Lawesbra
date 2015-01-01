@@ -1,5 +1,5 @@
 $(function(){
-
+	//update total payable
 	function update_tp () {
 		var tp = 0;
 		$('.order_subtotal').each(function(){
@@ -7,7 +7,73 @@ $(function(){
 		});
 		$('#total_payable').html(tp);
 	}
+	//update total order
+	function update_totalorder () {
+		var to = 0;
+		$('.order_qty').each(function(){
+			to += parseInt($(this).html());
+		});
+		$('.orders_count').html(to);
+	}
+	function get_prio (order_id, the_url) {
+		var data;
+		// $.post(the_url + 'get_prio/' + order_id, function(prio){
+		// 	data = prio;
+		// });
+		$.ajax({
+			url : the_url + 'get_prio/' + order_id,
 
+		});
+		return data;
+	}
+	//test log : data to be sent to server
+	function data_to_send(data , the_url) { //order id && controller url
+		var count = $('.the_orders .per_order').length;
+		$('.the_orders .per_order').each(function(){
+			$.ajax({
+				url : the_url + 'submit_perorder',
+				type : 'POST',
+				data : {
+					'order_id_LINK' : data,
+					'price_id_LINK' : this.id,
+					'quantity' : $(this).find('.order_qty').html()
+				},
+				success : function(data){
+
+				},error : function(err){
+					console.log(err.responseText);
+				}
+			});
+			count--;
+			if(count == 0){
+				// done queue
+				$('a.link_home').off();
+				$('li.link_orders').off();
+				$('li.link_categories').off();
+				$('a.queue_order').fadeOut(300);
+				$('a.table_num').fadeOut(300);
+				$('a.cash').fadeOut(300);
+				$('.edit_order').fadeOut(300);
+				//get priority num
+				$.post(the_url + 'get_prio/' + data, function(data_prio){
+					$('.well-sm').prepend("<h5>Priority Number: <span class='text-warning' style='font-size: 20px;'>"+data_prio+"</span></h5>")
+				});
+			}
+		});
+		
+	}
+	//GET DATE
+        function get_date(){
+            var d = new Date();
+            var month = d.getMonth()+1;
+            var day = d.getDate();
+            var output = d.getFullYear() + '/' +
+            ((''+month).length<2 ? '0' : '') + month + '/' +
+            ((''+day).length<2 ? '0' : '') + day;
+            var currentTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+            var now = ""+output+" "+currentTime;
+            return now;
+        }
 	//LOGIN SUBMIT
 	$('.submit_login').click(function(event){
 		event.preventDefault();	
@@ -134,30 +200,33 @@ $(function(){
 			type : 'post',
 			success: function(data){
 				$('.order_list').append(data).delay(1000);
-				update_tp();
+				update_tp(); update_totalorder();
 			}, error : function(err){
 				console.log(err.responseText);
 			}
 		});
-
-		$(".success_add_alert").fadeIn(500).delay(1500).fadeOut(400);
+		$(".success_add_alert").removeClass('alert-danger').addClass('alert-success');
+		$(".success_add_alert").html('<p>Order successfully added.</p>').fadeIn(500).delay(1500).fadeOut(400);
 		$('.test_modal').modal('hide');
 		// update pill
 		var count = parseInt($('.orders_count').html()) + parseInt($(this).html());
 		$('.orders_count').html(count);
 		//update total payable
-		
 	});
 
 	//set table number
 	$('a.table_num').click(function(){
-		// console.log('table number set.');
 		$('.modal_table_num').modal('show');
 	});
-	//press a num
+	//set cash
+	$('a.cash').click(function(){
+		$('.modal_cash').modal('show');
+	});
+
+	//press a num - TABLE
 	$('.select_table').click(function(){
 		if($(this).html() == "OK"){
-			$('.table_num').html("tbl #" +$('.table_input_box').html());
+			$('span.the_tnum').html(parseInt($('.table_input_box').html().trim()));
 			$('.modal_table_num').modal('hide');
 		}else if($(this).html() == "C"){
 			var tnum = $('.table_input_box').html();
@@ -166,10 +235,96 @@ $(function(){
 		else
 			$('.table_input_box').append($(this).html());
 	});
+	//press a num - CASH
+	$('.input_cash').click(function(){
+		if($(this).html() == "OK"){
+			$('span.the_cash').html(parseInt($('.cash_input_box').html().trim()));
+			$('.modal_cash').modal('hide');
+		}else if($(this).html() == "C"){
+			var tnum = $('.cash_input_box').html();
+			$('.cash_input_box').html(tnum.slice(0, -1));
+		}
+		else
+			$('.cash_input_box').append($(this).html());
+	});
+
 	//queue order 
 	$('a.queue_order').click(function(){
-		console.log('queue order');
+		if(parseInt($('span.the_tnum').html()) > 0){
+			if(parseInt($('#total_payable').html()) > 0){
+				var the_url = $(this).attr('data-url');
+				$.ajax({
+					url : the_url + 'get_orderID',
+					type : 'POST',
+					data : {
+						'cust_id_LINK' : parseInt($('.main_content').attr('id')),
+						'table_no' : parseInt($('span.the_tnum').html()),
+						'cash' : parseInt($('.the_cash').html()),
+						'order_dateTime' : get_date()
+					},
+					success : function(data){
+						data_to_send(data, the_url);
+					}, error : function(err){
+						console.log(err.responseText);
+					}
+				});
+				
+			}else{
+				$(".success_add_alert").removeClass('alert-success').addClass('alert-danger');
+				$(".success_add_alert").html('<p>You don\'t have order/s yet.</p>').fadeIn(500).delay(1500).fadeOut(400);
+			}
+		}else{
+			$(".success_add_alert").removeClass('alert-success').addClass('alert-danger');
+			$(".success_add_alert").html('<p>Please input a table number').fadeIn(500).delay(1500).fadeOut(400);
+		}
 	});
+	//edit order
+	$('body').on('click', '.edit_order',function(){
+		// console.log($(this).closest('.per_order').attr('id'));
+		// if(confirm('Are you sure to remove this order?'))
+			// $(this).closest('.per_order').slideUp(300).delay(300).remove();
+		pname = $(this).closest('.row-content').find('.p_name').html();
+		pcount = $(this).closest('.row-content').find('.order_qty').html();
+		pid = $(this).closest('.per_order').attr('id');
+		$('.modal_edit_order').find('.edit_pname').html(pname);
+		$('.modal_edit_order').find('.pqty').html(pcount);
+		$('.modal_edit_order').find('.modal-body').attr('id', pid);
+		$('.modal_edit_order').modal('show');
+
+	});
+	//add order
+	$('body').on('click', '.edit_add',function(){
+		if(parseInt($('.pqty').html()) < 20)
+			$('.pqty').html(parseInt($('.pqty').html()) + 1);
+	});
+	//reduce order
+	$('body').on('click', '.edit_reduce',function(){
+		if(parseInt($('.pqty').html()) > 1)
+			$('.pqty').html(parseInt($('.pqty').html()) - 1);
+	});
+	//edit ok
+	$('body').on('click', '.edit_ok',function(){
+		var pid = $(this).closest('.modal-body').attr('id');
+		var newqty = parseInt($('.pqty').html()),
+			pprice = $('.the_orders').find('#'+pid).find('.order_prod_price').html(),
+			newsubtotal = parseInt(pprice) * newqty;
+		//update per order
+		$('.the_orders').find('#'+pid).find('.order_qty').html(newqty);
+		$('.the_orders').find('#'+pid).find('.order_subtotal').html(newsubtotal);
+		update_tp(); update_totalorder();
+		$('.modal_edit_order').modal('hide');
+	});
+	// remove order
+	$('body').on('click', '.edit_remove',function(){
+		var pid = $(this).closest('.modal-body').attr('id');
+		// if(confirm('Are you sure to remove this order?'))
+		$('.the_orders').find('#'+pid).slideUp(300).delay(300).remove();
+		update_tp(); update_totalorder();
+		$('.modal_edit_order').modal('hide');
+	});
+
+// AFTER QUEUE **************************
+
 
 }) //@end main
 .ajaxStart(function() {

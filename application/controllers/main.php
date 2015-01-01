@@ -46,6 +46,35 @@ class Main extends CI_Controller {
 		$html = $this->load->view('per_order_template', $data);
 		echo $html;
 	}
-
-
+	//get order ID
+	public function get_orderID()
+	{
+		$dataset = array(
+			'order_id' => NULL,
+			'cust_id_LINK' => $this->input->post('cust_id_LINK'),
+			'table_no' => $this->input->post('table_no'),
+			'cash' => $this->input->post('cash'),
+			'order_stat' => 1,
+			'order_dateTime' => $this->input->post('order_dateTime')
+		);
+		$response = $this->model_main->getorderID($dataset);
+		echo $response;
+	}
+	//submit per order
+	public function submit_perorder()
+	{
+		$dataset = array(
+			'orderItem_id' => NULL,
+			'order_id_LINK' => $this->input->post('order_id_LINK'),
+			'price_id_LINK' => $this->input->post('price_id_LINK'),
+			'quantity' => $this->input->post('quantity')
+		);
+		$this->model_main->submit_perorder($dataset);
+	}
+	//get prio
+	public function get_prio($order_id='')
+	{
+		$data = $this->model_main->get_prio(array('order_id_link' => $order_id));
+		echo $data;
+	}
 } //@end main

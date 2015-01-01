@@ -9,8 +9,8 @@
 	z-index: 9999;
 	border-radius: 25px;
 }
-.remove_order{
-	background-color: #B2B2B2;
+.edit_order{
+	background-color: #03A9F4;
 	padding: 1px 7px 1px 7px;
 	border-radius: 38px;
 	color: white;
@@ -84,7 +84,7 @@
 	position: relative;
 	font-size: 50px;
 }
-.table_numpad{
+.table_numpad, .cashpad{
 	position: relative;
 	font-size: 40px;	
 }
@@ -92,7 +92,7 @@
 	-webkit-border-radius: 15px 15px 15px 15px;	
 	border-radius: 15px 15px 15px 15px;
 }
-.table_input_box{
+.table_input_box, .cash_input_box{
 	font-size: 60px;
 	font-weight: bold;
 	margin-top: -30px;

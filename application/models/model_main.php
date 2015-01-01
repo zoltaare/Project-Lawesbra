@@ -34,5 +34,26 @@ class Model_main extends CI_Controller {
 		$q = $this->db->get_where('view_product_prices', array('price_id' => $p_id));
 		return $q->result_array();
 	}
-
+	//get order id
+	public function getorderID($data='')
+	{
+		// insert order header
+		$this->db->insert('tbl_order', $data);
+		//return order id
+		unset($data['order_id']);
+		$q = $this->db->get_where('tbl_order', $data);
+		$this->db->insert('tbl_priority', array('priority_no'=> NULL, 'order_id_link'=>$q->row()->order_id));
+		return $q->row()->order_id;	
+	}
+	//submit per order
+	public function submit_perorder($data='')
+	{
+		$this->db->insert('tbl_orderitem', $data);
+	}
+	//get prio
+	public function get_prio($order_id='')
+	{
+		$q = $this->db->get_where('tbl_priority', $order_id);
+		return $q->row()->priority_no;
+	}
 } //@end main
