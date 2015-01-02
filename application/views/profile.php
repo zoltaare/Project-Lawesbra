@@ -29,7 +29,6 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<!-- <a class="navbar-brand link_home" href="#">Project Lawesbra</a> -->
 				<a class="navbar-brand link_home" href="#"><i class="mdi-maps-restaurant-menu" style="font-size: 28px;"></i></a>
 				<div class="page_header_title">Categories</div>
 			</div>
@@ -85,15 +84,19 @@
 			<div class="row order_list"><br/>
 				
 			</div>
-			<footer class="footer">
-		      <!-- <div class="container"> --><center>
+			<footer class="footer"><center>
 		      	<div class="well well-sm" style="padding: 1px; margin-bottom: 0px;">
 					<h5>Total Payable : <span class="text-success" style="font-size: 20px;">&#8369;<span id="total_payable"></span>.00</span></h5>
 				</div>
+				<!-- before queue controls -->
 		        <a href="javascript:void(0)" class="btn btn-success btn-raised queue_order" data-url="<?php echo base_url(); ?>main/">Queue</a>
 		        <a href="javascript:void(0)" class="btn btn-warning btn-raised table_num">Tbl # <span class='the_tnum'></span></a>
 		        <a href="javascript:void(0)" class="btn btn-primary btn-raised cash">Cash (Optional) &#8369;<span class='the_cash'></span>.00</a>
-		      <!-- </div> --></center>
+		    	<!-- after queue controls -->
+		        <a href="javascript:void(0)" class="btn btn-warning btn-raised hold_order hidden" data-url="<?php echo base_url(); ?>main/">HOLD ORDERS</a>
+		        <a href="javascript:void(0)" class="btn btn-success btn-raised quickadd_order hidden" data-url="<?php echo base_url(); ?>main/">Quick add order</a>
+		        <a href="javascript:void(0)" class="btn btn-danger btn-raised cancel_order hidden" data-url="<?php echo base_url(); ?>main/">cancel order</a>
+		    	</center>
 		    </footer>
 		</div>
 

@@ -56,4 +56,25 @@ class Model_main extends CI_Controller {
 		$q = $this->db->get_where('tbl_priority', $order_id);
 		return $q->row()->priority_no;
 	}
+	//hold_order
+	public function hold_order($order_id='')
+	{
+		$this->db->where('order_id', $order_id);
+		$this->db->update('tbl_order', array('order_stat' => 'hold'));		
+	}
+	// /cancel_order
+	public function cancel_order($order_id='')
+	{
+		$this->db->where('order_id', $order_id);
+		$this->db->update('tbl_order', array('order_stat' => 'cancelled'));		
+	}
+	//remove_perorder
+	public function remove_perorder($data='')
+	{
+		$this->db->delete('tbl_orderitem', array('order_id_LINK' => $data));
+		//update status
+		$this->db->where('order_id', $data);
+		$this->db->update('tbl_order', array('order_stat' => 'new'));	
+	}
+
 } //@end main

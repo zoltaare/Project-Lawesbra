@@ -54,7 +54,7 @@ class Main extends CI_Controller {
 			'cust_id_LINK' => $this->input->post('cust_id_LINK'),
 			'table_no' => $this->input->post('table_no'),
 			'cash' => $this->input->post('cash'),
-			'order_stat' => 1,
+			'order_stat' => 'new',
 			'order_dateTime' => $this->input->post('order_dateTime')
 		);
 		$response = $this->model_main->getorderID($dataset);
@@ -76,5 +76,20 @@ class Main extends CI_Controller {
 	{
 		$data = $this->model_main->get_prio(array('order_id_link' => $order_id));
 		echo $data;
+	}
+	//hold_order
+	public function hold_order($orderid='')
+	{
+		$this->model_main->hold_order($orderid);
+	}
+	//cancel_order
+	public function cancel_order($order_id='')
+	{
+		$this->model_main->cancel_order($order_id);
+	}
+	//remove orders
+	public function remove_perorder($orderid='')
+	{
+		$this->model_main->remove_perorder($orderid);
 	}
 } //@end main

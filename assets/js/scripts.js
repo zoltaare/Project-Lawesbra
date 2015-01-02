@@ -15,17 +15,6 @@ $(function(){
 		});
 		$('.orders_count').html(to);
 	}
-	function get_prio (order_id, the_url) {
-		var data;
-		// $.post(the_url + 'get_prio/' + order_id, function(prio){
-		// 	data = prio;
-		// });
-		$.ajax({
-			url : the_url + 'get_prio/' + order_id,
-
-		});
-		return data;
-	}
 	//test log : data to be sent to server
 	function data_to_send(data , the_url) { //order id && controller url
 		var count = $('.the_orders .per_order').length;
@@ -47,20 +36,36 @@ $(function(){
 			count--;
 			if(count == 0){
 				// done queue
+				$('a.queue_order').slideUp('slow');
+				$('a.table_num').slideUp('slow');
+				$('a.cash').slideUp('slow');
+				$('.edit_order').slideUp('slow');
+				//turn off links
 				$('a.link_home').off();
-				$('li.link_orders').off();
 				$('li.link_categories').off();
-				$('a.queue_order').fadeOut(300);
-				$('a.table_num').fadeOut(300);
-				$('a.cash').fadeOut(300);
-				$('.edit_order').fadeOut(300);
+				//show waiting controls
+				$('a.hold_order').removeClass('hidden');
 				//get priority num
 				$.post(the_url + 'get_prio/' + data, function(data_prio){
-					$('.well-sm').prepend("<h5>Priority Number: <span class='text-warning' style='font-size: 20px;'>"+data_prio+"</span></h5>")
+					$('.well-sm').prepend("<h5>Priority Number: <span class='text-warning prio_num' style='font-size: 20px;' id='"+data+"'>"+data_prio+"</span></h5>")
 				});
 			}
 		});
 		
+	}
+	//is order exists
+	function is_order_exists (price_id, qty) {
+		var response = false;
+		$('.the_orders .per_order').each(function(){
+			if(this.id == price_id){
+				var new_qty = parseInt($(this).find('.order_qty').html()) + qty;
+				$(this).find('.order_qty').html(new_qty);
+				$(this).find('.order_subtotal').html(new_qty * parseInt($(this).find('.order_prod_price').html()) );
+				response = true;
+				return false;
+			}
+		});
+		return response;
 	}
 	//GET DATE
         function get_date(){
@@ -122,14 +127,22 @@ $(function(){
 	$('.link_home').click(function(event){
 		event.preventDefault();
 		$('.nav_link').removeClass('active');
-		$('li.link_categories').addClass('active');
-		if($('.collapse').hasClass('in')){ //toggle if collapsed
-			$('.collapse').collapse('toggle');
-		}
-		$('.page_header_title').text('Categories');
-		$('.category').slideUp('slow');
-		$('.orders').slideUp('slow');
-		$('.categories').slideDown('slow');
+			$('li.link_categories').addClass('active');
+			if($('.collapse').hasClass('in')){ //toggle if collapsed
+				$('.collapse').collapse('toggle');
+			}
+			$('.page_header_title').text('Categories');
+			$('.category').slideUp('slow');
+			$('.orders').slideUp('slow');
+			$('.categories').slideDown('slow');
+		// if($('a.hold_order').hasClass('hidden')){ //before queue
+		// 	console.log('before queue');
+		// }else{ //after queue
+		// 	// trigger hold
+		// 	$('a.hold_order').trigger('click');
+		// 	console.log('after queue : hold triggered');
+		// }
+		
 	});
 
 	// orders page
@@ -156,6 +169,14 @@ $(function(){
 		$('.category').slideUp('fast');
 		$('.orders').slideUp('slow');
 		$('.categories').slideDown('slow');
+
+		// if($('a.hold_order').hasClass('hidden')){ //before queue
+		// 	console.log('before queue');
+		// }else{ //after queue
+		// 	// trigger hold
+		// 	$('a.hold_order').trigger('click');
+		// 	console.log('after queue : hold triggered');
+		// }
 	});
 
 	//select category
@@ -169,7 +190,7 @@ $(function(){
 			}, error : function(err){
 				console.log(err.responseText);
 			}
-		})
+		});
 		$('.page_header_title').text($(this).find('h4').text());
 		$('.categories').slideUp('slow'); //hide categories page
 		$('.category').slideDown('slow'); //show products 
@@ -191,26 +212,32 @@ $(function(){
 
 	//add order
 	$('.num').click(function(){	
-		$.ajax({
-			url : $(this).attr('data-url'),
-			data : { 
-				'price_id' : $(this).attr('data-price-id'),
-				'qty' : parseInt($(this).html())
-			},
-			type : 'post',
-			success: function(data){
-				$('.order_list').append(data).delay(1000);
-				update_tp(); update_totalorder();
-			}, error : function(err){
-				console.log(err.responseText);
-			}
-		});
+		if(is_order_exists($(this).attr('data-price-id'), parseInt($(this).html()) )){ //order exists
+			// $('.per_order')
+			update_tp(); update_totalorder();
+		}else{
+			$.ajax({
+				url : $(this).attr('data-url'),
+				data : { 
+					'price_id' : $(this).attr('data-price-id'),
+					'qty' : parseInt($(this).html())
+				},
+				type : 'post',
+				success: function(data){
+					$('.order_list').append(data).delay(1000);
+					update_tp(); update_totalorder();
+				}, error : function(err){
+					console.log(err.responseText);
+				}
+			});
+		}	
 		$(".success_add_alert").removeClass('alert-danger').addClass('alert-success');
 		$(".success_add_alert").html('<p>Order successfully added.</p>').fadeIn(500).delay(1500).fadeOut(400);
 		$('.test_modal').modal('hide');
-		// update pill
-		var count = parseInt($('.orders_count').html()) + parseInt($(this).html());
-		$('.orders_count').html(count);
+
+		// // update pill
+		// var count = parseInt($('.orders_count').html()) + parseInt($(this).html());
+		// $('.orders_count').html(count);
 		//update total payable
 	});
 
@@ -250,8 +277,8 @@ $(function(){
 
 	//queue order 
 	$('a.queue_order').click(function(){
-		if(parseInt($('span.the_tnum').html()) > 0){
-			if(parseInt($('#total_payable').html()) > 0){
+		if(parseInt($('span.the_tnum').html()) > 0){ //has table num?
+			if(parseInt($('#total_payable').html()) > 0){ //has order/s?
 				var the_url = $(this).attr('data-url');
 				$.ajax({
 					url : the_url + 'get_orderID',
@@ -317,15 +344,78 @@ $(function(){
 	// remove order
 	$('body').on('click', '.edit_remove',function(){
 		var pid = $(this).closest('.modal-body').attr('id');
-		// if(confirm('Are you sure to remove this order?'))
 		$('.the_orders').find('#'+pid).slideUp(300).delay(300).remove();
 		update_tp(); update_totalorder();
 		$('.modal_edit_order').modal('hide');
 	});
 
 // AFTER QUEUE **************************
+	//hold order
+	$('a.hold_order').click(function(){
+		var orderid_update = $('.prio_num').attr('id');
+		var the_url = $(this).attr('data-url');
+		if($(this).html() == 'HOLD ORDERS'){ //hold orders /for edit
+			$(this).html('OK');
+			//update order status == hold
+			$.post( $(this).attr('data-url') + 'hold_order/' + orderid_update , function(){
+				$('.edit_order').slideDown('slow');
+				$('a.cancel_order').removeClass('hidden').delay(200).slideDown('slow');
+				$('a.quickadd_order').removeClass('hidden').delay(200).slideDown('slow');
+				$(".success_add_alert").removeClass('alert-success').addClass('alert-danger');
+				$(".success_add_alert").html('<p>Your order has been held.').fadeIn(500).delay(1500).fadeOut(400);
+			});
 
+		}else if($(this).html() == 'OK'){ //OK
+			$(this).html('HOLD ORDERS');
+			//remove per orders from database
+			$.post(the_url + 'remove_perorder/' + orderid_update, function(){
+				//add new orders
+				var count = $('.the_orders .per_order').length;
+				$('.the_orders .per_order').each(function(){
+						$.ajax({
+							url : the_url + 'submit_perorder',
+							type : 'POST',
+							data : {
+								'order_id_LINK' : orderid_update,
+								'price_id_LINK' : this.id,
+								'quantity' : $(this).find('.order_qty').html()
+							},
+							success : function(data){
 
+							},error : function(err){
+								console.log(err.responseText);
+							}
+						});
+						count--;
+						if(count == 0){
+							// done queue
+							$('.edit_order').slideUp('slow');
+							$('a.cancel_order').removeClass('hidden').delay(200).slideUp('fast');
+							$('a.quickadd_order').removeClass('hidden').delay(200).slideUp('fast');
+							$(".success_add_alert").removeClass('alert-danger').addClass('alert-success');
+							$(".success_add_alert").html('<p>Order successfully queued.').fadeIn(500).delay(1500).fadeOut(400);
+						}
+					});
+			});
+			//=======================================
+		}
+	});	
+	//$('a.quickadd_order').
+	$('a.quickadd_order').click(function(){
+		$('.page_header_title').text('Categories');
+		$('.category').slideUp('fast');
+		$('.orders').slideUp('slow');
+		$('.categories').slideDown('slow');
+	});
+	//cancel order
+	$('a.cancel_order').click(function(){
+		var orderid = $('.prio_num').attr('id');
+		if(confirm('Are you sure to cancel your orders?')){
+			$.post( $(this).attr('data-url') + 'cancel_order/' + orderid , function(){
+				location.reload();
+			});
+		}
+	});
 }) //@end main
 .ajaxStart(function() {
 	$('.ajax_loader img').show();
